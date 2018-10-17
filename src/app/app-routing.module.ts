@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CanActivateGuard, LayoutAuthComponent } from 'ngx-admin-lte';
+import { CanActivateGuard, LayoutAuthComponent, MenuService } from 'ngx-admin-lte';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './auth-guard.service';
 import { HeaderWidgetComponent } from './header-widget/header-widget.component';
 import { PageNumComponent } from './page-num/page-num.component';
-
-
-
+import { LocationComponent } from './openmrs/location/location.component';
+import { MenuWidgetComponent } from './widgets/menu-widget/menu-widget.component';
+import { CreateLocationComponent } from './openmrs/create-location/create-location.component';
 
 const routes: Routes = [
   // logged routes
@@ -22,6 +22,14 @@ const routes: Routes = [
         path: 'home'
       },
       {
+        component: LocationComponent,
+        path: 'location'
+      },
+      {
+        component: CreateLocationComponent,
+        path: 'create-location'
+      },
+      {
         canActivate: [CanActivateGuard],
         component: PageNumComponent,
         path: 'page/:id'
@@ -29,8 +37,8 @@ const routes: Routes = [
     ],
     component: LayoutAuthComponent,
     data: [{
-        'skin': 'skin-black',
-        'display_user': false,
+        'skin': 'skin-blue',
+        'display_user': true,
         'display_notifications': false,
         'display_messages': false,
         'display_tasks': false,
@@ -60,12 +68,13 @@ const routes: Routes = [
   {
     component: LoginComponent,
     path: 'login'
-  },
+  }
   // {
   //   component: RegisterComponent,
   //   path: 'register'
   // }
 ];
+
 
 @NgModule({
   imports: [
@@ -74,4 +83,46 @@ const routes: Routes = [
   exports: [ RouterModule ]
 })
 
-export class AppRoutingModule {}
+export class AppRoutingModule {
+  private mylinks = [
+    {
+      'title': 'Home',
+      'icon': 'home',
+      'link': ['/home']
+    },
+    {
+      'title': 'Location',
+      'icon': 'map-marker',
+      sublinks: [
+        {
+          title: 'Create',
+          link: '/create-location'
+        },
+        {
+          title: 'View all',
+          link: '/location'
+        }
+      ]
+    },
+    {
+      'title': 'External Links',
+      'icon': 'link',
+      'sublinks': [
+        {
+          'title': 'Github',
+          'link': ['https://github.com/TwanoO67/ngx-admin-lte'],
+          'icon': 'github',
+          'external': true,
+          'target': '_blank'
+        }
+      ]
+    }
+  ];
+  constructor(
+    private menuService: MenuService
+  ){
+ 
+    this.menuService.setCurrent(this.mylinks);
+  }
+
+}

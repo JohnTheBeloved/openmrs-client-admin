@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { BreadcrumbService } from 'ngx-admin-lte';
 
 @Component({
@@ -6,7 +6,7 @@ import { BreadcrumbService } from 'ngx-admin-lte';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnChanges {
 
   constructor(private breadServ: BreadcrumbService) { }
 
@@ -24,6 +24,10 @@ export class HomeComponent implements OnInit {
           }
         ]
       });
+  }
+
+  ngOnChanges(){
+
   }
 
 }

@@ -1,0 +1,62 @@
+<div class="col-md-12">
+  <!-- general form elements -->
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Create a new Location</h3>
+    </div>
+    <!-- /.box-header -->
+    <!-- form start -->
+    <form role="form">
+      <div class="box-body">
+        <div class="form-group">
+            <label>Parent Location</label>
+        <select2 name="parent" [options]="parents" [settings]="locationSelectionOptions" [(ngModel)]="location.parent.name" (onSelect)="onSelect($event)"></select2>
+        </div>
+        <div class="form-group">
+          <label for="locationName">Name</label>
+          <input name="name" type="name" class="form-control" id="locationName" [(ngModel)]="location.name" placeholder="Enter Location name" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAAXNSR0IArs4c6QAAAPhJREFUOBHlU70KgzAQPlMhEvoQTg6OPoOjT+JWOnRqkUKHgqWP4OQbOPokTk6OTkVULNSLVc62oJmbIdzd95NcuGjX2/3YVI/Ts+t0WLE2ut5xsQ0O+90F6UxFjAI8qNcEGONia08e6MNONYwCS7EQAizLmtGUDEzTBNd1fxsYhjEBnHPQNG3KKTYV34F8ec/zwHEciOMYyrIE3/ehKAqIoggo9inGXKmFXwbyBkmSQJqmUNe15IRhCG3byphitm1/eUzDM4qR0TTNjEixGdAnSi3keS5vSk2UDKqqgizLqB4YzvassiKhGtZ/jDMtLOnHz7TE+yf8BaDZXA509yeBAAAAAElFTkSuQmCC&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;">
+        </div>
+        <div class="form-group">
+          <label for="locationAddress">Address</label>
+          <div class="row">
+              <div class="col-xs-3">
+                <label for="addressLine1">Line 1</label>
+                <input name="addressLine1" id="addressLine1" [(ngModel)]="location.addressLine1" type="text" class="form-control" placeholder=".col-xs-3">
+              </div> 
+              <div class="col-xs-4">
+                  <label for="addressLine2">Line 2</label>
+                <input name="addressLine2" id="addressLine2" [(ngModel)]="location.addressLine2" type="text" class="form-control" placeholder=".col-xs-4">
+              </div>
+              <div class="col-xs-5">
+                  <label for="addressLine3">Line 3</label>
+                <input name="addressLine3" id="addressLine3" [(ngModel)]="location.addressLine3" type="text" class="form-control" placeholder=".col-xs-5">
+              </div>
+            </div>
+          </div>
+        <div class="row">
+          <div class="col-xs-3">
+            <label>Country</label>
+            <select2  name="country" [options]="countries" [settings]="locationSelectionOptions" [(ngModel)]="location.country" (onSelect)="onSelect($event)"
+              placeholder="Select Country"></select2>
+          </div>
+          <div class="col-xs-4">
+              <label>State</label>
+              <select2 name="state" [options]="states" [settings]="locationSelectionOptions" [(ngModel)]="location.state" (onSelect)="onSelect($event)"
+               placeholder="Select State"></select2>
+            </div>
+          <div class="col-xs-5">
+            <label>City/Province/Area</label>
+            <select2 name="locality" [options]="countries" [settings]="locationSelectionOptions" [(ngModel)]="location.locality" (onSelect)="onSelect($event)"
+               placeholder="Select City/Province/Area"></select2>
+          </div>
+          </div>
+      </div>
+      <!-- /.box-body -->
+
+      <div class="box-footer">
+        <button type="submit" class="btn btn-primary pull-right">Submit</button>
+      </div>
+    </form>
+  </div>
+  <!-- /.box -->
+</div>
