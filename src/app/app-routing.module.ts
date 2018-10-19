@@ -7,9 +7,10 @@ import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './auth-guard.service';
 import { HeaderWidgetComponent } from './header-widget/header-widget.component';
 import { PageNumComponent } from './page-num/page-num.component';
-import { LocationComponent } from './openmrs/location/location.component';
-import { MenuWidgetComponent } from './widgets/menu-widget/menu-widget.component';
-import { CreateLocationComponent } from './openmrs/create-location/create-location.component';
+import { ListLocationComponent } from './openmrs/component/location/list-location/list-location.component';
+import { ViewLocationComponent } from './openmrs/component/location/view-location/view-location.component';
+import { MenuWidgetComponent } from './widget/menu-widget/menu-widget.component';
+import { CreateLocationComponent } from './openmrs/component/location/create-location/create-location.component';
 
 const routes: Routes = [
   // logged routes
@@ -22,12 +23,16 @@ const routes: Routes = [
         path: 'home'
       },
       {
-        component: LocationComponent,
+        component: ListLocationComponent,
         path: 'location'
       },
       {
         component: CreateLocationComponent,
         path: 'create-location'
+      },
+      {
+        component: ViewLocationComponent,
+        path: 'view-location/:uuid'
       },
       {
         canActivate: [CanActivateGuard],

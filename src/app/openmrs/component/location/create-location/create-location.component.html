@@ -41,14 +41,22 @@
           </div>
           <div class="col-xs-4">
               <label>State</label>
-              <select2 name="state" [options]="states" [settings]="locationSelectionOptions" [(ngModel)]="location.state" (onSelect)="onSelect($event)"
+              <select2 name="state" [options]="states" [settings]="locationSelectionOptions" [(ngModel)]="location.state" (onSelect)="stateChanged($event)"
                placeholder="Select State"></select2>
             </div>
           <div class="col-xs-5">
             <label>City/Province/Area</label>
-            <select2 name="locality" [options]="countries" [settings]="locationSelectionOptions" [(ngModel)]="location.locality" (onSelect)="onSelect($event)"
+            <select2 name="locality" [options]="localities" [settings]="locationSelectionOptions" [(ngModel)]="location.locality" (onSelect)="onSelect($event)"
                placeholder="Select City/Province/Area"></select2>
           </div>
+          </div>
+          <div *ngFor="let attribute of location.attributes">
+              <list-select *ngIf="attribute.attributeType.widget === Widget.SINGLE_LIST_SELECT" 
+              [attribute]="attribute" [displayMode]="DisplayMode.EDIT"></list-select>
+              <multi-list-select *ngIf="attribute.attributeType.widget === Widget.MULTI_LIST_SELECT" 
+              [attribute]="attribute" [displayMode]="DisplayMode.EDIT"></multi-list-select>
+              <radio-select *ngIf="attribute.attributeType.widget === Widget.MULTI_LIST_SELECT" 
+              [attribute]="attribute" [displayMode]="DisplayMode.EDIT"></radio-select>
           </div>
       </div>
       <!-- /.box-body -->

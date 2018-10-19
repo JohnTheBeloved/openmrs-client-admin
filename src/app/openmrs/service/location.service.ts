@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { Observable, of, forkJoin } from 'rxjs';
+import { catchError, tap, mergeMap } from 'rxjs/operators';
 import { HealthService } from './health.service'
 import { Location } from '../model/location';
+import { Attribute } from 'src/app/attribute';
 
 @Injectable({
   providedIn: 'root'
@@ -12,23 +13,28 @@ export class LocationService {
 
   constructor(private http: HttpClient,private health: HealthService) { }
   private locationsUrl = 'api/locations';
+  private locationsAttributeUrl = 'api/location_attributes';
 
   /** GET locatons from the server */
   getLocations (): Observable<Location[]> {
     return this.http.get<Location[]>(this.locationsUrl)
       .pipe(
-        tap(heroes => this.health.log('fetched heroes')),
+        tap(locations => this.health.log('fetched heroes')),
         catchError(this.handleError('getHeroes', []))
       );
   }
 
   /** GET hero by id. Will 404 if id not found */
-  getLocation(id: number): Observable<Location> {
-    const url = `${this.locationsUrl}/${id}`;
-    return this.http.get<Location>(url)
+  getLocation(uuid: string): Observable<Location> {
+    const location_url = `${this.locationsUrl}?uuid=${uuid}`;
+    const location_attribute_url = `${this.locationsAttributeUrl}`;
+    const httpLocation = this.http.get<Location>(location_url)
+    const httpLocationAttributes = this.http.get<Attribute[]>(location_attribute_url)
+    return forkJoin([httpLocation, httpLocationAttributes])
+      .map(results => {console.log(87, results); results[0][0].attributes = results[1]; return results[0][0]; })
       .pipe(
-        tap(_ => this.health.log(`fetched hero id=${id}`)),
-        catchError(this.handleError<Location>(`getLocation id=${id}`))
+        tap( results => this.health.log(`fetched hero id=${uuid}`)),
+        catchError(this.handleError<Location>(`getLocation id=${uuid}`))
       );
   }
 

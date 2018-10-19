@@ -5,28 +5,29 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { catchError, tap } from 'rxjs/operators';
 import { HealthService } from './health.service';
-import { State } from '../model/state'
+import { Country } from '../model/country'
 @Injectable({
   providedIn: 'root'
 })
-export class StateService {
+export class CountryService {
   
 
   constructor(private http: HttpClient, private health: HealthService) { }
-  private statesUrl = 'api/states';
+  private countriesUrl = 'api/countries';
 
    /** GET locatons from the server */
-   getStates (): Observable<State[]> {
-    return this.http.get<State[]>(this.statesUrl)
+   getCountries (): Observable<Country[]> {
+    return this.http.get<Country[]>(this.countriesUrl)
       .pipe(
-        tap(states => {  this.health.log('fetched states', states) }),
-        catchError(this.handleError('getStates', []))
+        tap(heroes => this.health.log('fetched countries')),
+        catchError(this.handleError('getCountries', []))
       );
   }
 
   private handleError<T>(operation = 'operation', result?: T){
     return (error: any): Observable<T> => {
-        this.health.log(`${operation} failed : ${error.message}`, error)
+        console.error(error);
+        this.health.log(`${operation} failed : ${error.message}`)
         return of(result as T)
     }
   }

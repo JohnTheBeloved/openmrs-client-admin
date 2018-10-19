@@ -1,0 +1,4 @@
+<label for="{{attribute.uuid}}">{{attribute.concept.name}}</label>
+<select2 *ngIf="editMode" name="{{attribute.uuid}}" [options]="attribute.concept.options" [settings]="locationSelectionOptions" [(ngModel)]="attribute.value" (onSelect)="onSelect($event)"
+              placeholder="Select value"></select2>
+<div *ngIf="editMode" > {{attribute.value}} </div>

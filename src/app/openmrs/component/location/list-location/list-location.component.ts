@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { BreadcrumbService } from 'ngx-admin-lte';
-import { LocationService } from '../service/location.service';
-import { Location } from '../model/location';
+import { LocationService } from '../../../service/location.service';
+import { Location } from '../../../model/location';
 
 @Component({
   selector: 'app-location',
-  templateUrl: './location.component.html',
-  styleUrls: ['./location.component.css']
+  templateUrl: './list-location.component.html',
+  styleUrls: ['./list-location.component.css']
 })
-export class LocationComponent implements OnInit {
+export class ListLocationComponent implements OnInit {
   private locations : Location[]
   constructor(private locationService: LocationService, private breadServ: BreadcrumbService) { }
 
